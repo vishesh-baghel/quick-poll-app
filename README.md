@@ -128,3 +128,48 @@ GET /polls/test
 "working perfectly"
 ```
 
+---
+
+## **Models**
+
+### **User Model**
+```java
+@Entity
+@Data
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+}
+```
+
+### **Poll Model**
+```java
+@Entity
+@Data
+public class Poll {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String question;
+    @ElementCollection
+    private List<String> options;
+}
+```
+
+### **Vote Model**
+```java
+@Entity
+@Data
+public class Vote {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Long pollId;
+    private Long userId;
+    private String selectedOption;
+}
+```
+
+
