@@ -1,7 +1,7 @@
 package com.example.quick.poll.app.controllers;
 
 import com.example.quick.poll.app.dtos.PollResults;
-import com.example.quick.poll.app.models.Vote;
+import com.example.quick.poll.app.dtos.VoteRequest;
 import com.example.quick.poll.app.services.VoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +19,9 @@ public class VoteController {
     private final VoteService voteService;
 
     @PostMapping
-    public ResponseEntity<String> castVote(@RequestBody Vote vote) {
-        log.info("received request to save vote");
-        voteService.castVote(vote);
+    public ResponseEntity<String> castVote(@RequestBody VoteRequest request) {
+        log.info("received request to save vote: {}", request);
+        voteService.castVote(request);
         return ResponseEntity.ok("Saved vote successfully");
     }
 

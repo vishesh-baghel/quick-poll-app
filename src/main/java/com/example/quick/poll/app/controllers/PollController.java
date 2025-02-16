@@ -26,9 +26,15 @@ public class PollController {
 
     @PostMapping
     public ResponseEntity<String> createPoll(@RequestBody Poll poll) {
-        log.info("received request to create poll: {}", poll);
-        pollService.savePoll(poll);
-        return ResponseEntity.ok("Created poll successfully");
+        try {
+            log.info("received request to create poll: {}", poll);
+            pollService.savePoll(poll);
+            return ResponseEntity.ok("Created poll successfully");
+        } catch (Exception e) {
+            log.error("Exception while creating polls", e);
+            return new ResponseEntity<>("Exception occurred while creating polls", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/{id}")

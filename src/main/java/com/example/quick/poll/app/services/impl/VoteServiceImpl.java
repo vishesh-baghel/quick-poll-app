@@ -1,8 +1,13 @@
 package com.example.quick.poll.app.services.impl;
 
 import com.example.quick.poll.app.dtos.PollResults;
+import com.example.quick.poll.app.dtos.VoteRequest;
+import com.example.quick.poll.app.models.Poll;
+import com.example.quick.poll.app.models.User;
 import com.example.quick.poll.app.models.Vote;
+import com.example.quick.poll.app.repositories.UserRepository;
 import com.example.quick.poll.app.repositories.VoteRepository;
+import com.example.quick.poll.app.services.PollService;
 import com.example.quick.poll.app.services.VoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,8 +22,20 @@ public class VoteServiceImpl implements VoteService {
 
     private final VoteRepository voteRepository;
 
+    private final UserRepository userRepository;
+
+    private final PollService pollService;
+
     @Override
-    public void castVote(Vote vote) {
+    public void castVote(VoteRequest request) {
+        Poll poll = pollService.findPoll(request.getPollId());
+        User user = userRepository.findById(request.getUserId()).orElseThrow();
+
+        Vote vote = new Vote();
+        vote.setPoll(poll);
+        vote.setUser(user);
+        vote.setSelectedOption(request.getSelectedOption());
+
         voteRepository.save(vote);
     }
 
