@@ -27,7 +27,7 @@ public class VoteServiceImpl implements VoteService {
     private final PollService pollService;
 
     @Override
-    public void castVote(VoteRequest request) {
+    public Long castVote(VoteRequest request) {
         Poll poll = pollService.findPoll(request.getPollId());
         User user = userRepository.findById(request.getUserId()).orElseThrow();
 
@@ -36,7 +36,9 @@ public class VoteServiceImpl implements VoteService {
         vote.setUser(user);
         vote.setSelectedOption(request.getSelectedOption());
 
-        voteRepository.save(vote);
+        Vote voteObj = voteRepository.save(vote);
+
+        return voteObj.getId();
     }
 
     @Override

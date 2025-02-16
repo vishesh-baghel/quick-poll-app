@@ -15,8 +15,9 @@ public class PollServiceImpl implements PollService {
     private final PollRepository pollRepository;
 
     @Override
-    public void savePoll(Poll poll) {
-        pollRepository.save(poll);
+    public Long savePoll(Poll poll) {
+        Poll pollObj = pollRepository.save(poll);
+        return pollObj.getId();
     }
 
     @Override

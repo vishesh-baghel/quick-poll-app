@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface VoteService {
 
-    void castVote(VoteRequest request);
+    Long castVote(VoteRequest request);
 
     List<PollResults> getPollResults(Long pollId);
 }

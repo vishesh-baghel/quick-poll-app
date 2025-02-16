@@ -28,8 +28,8 @@ public class PollController {
     public ResponseEntity<String> createPoll(@RequestBody Poll poll) {
         try {
             log.info("received request to create poll: {}", poll);
-            pollService.savePoll(poll);
-            return ResponseEntity.ok("Created poll successfully");
+            Long id = pollService.savePoll(poll);
+            return ResponseEntity.ok("Created poll successfully with id: " + id);
         } catch (Exception e) {
             log.error("Exception while creating polls", e);
             return new ResponseEntity<>("Exception occurred while creating polls", HttpStatus.INTERNAL_SERVER_ERROR);

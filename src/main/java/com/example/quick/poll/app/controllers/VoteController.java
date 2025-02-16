@@ -21,8 +21,8 @@ public class VoteController {
     @PostMapping
     public ResponseEntity<String> castVote(@RequestBody VoteRequest request) {
         log.info("received request to save vote: {}", request);
-        voteService.castVote(request);
-        return ResponseEntity.ok("Saved vote successfully");
+        Long id = voteService.castVote(request);
+        return ResponseEntity.ok("Saved vote successfully with id: " + id);
     }
 
     @GetMapping("/results/{pollId}")

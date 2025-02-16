@@ -21,7 +21,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody User user) {
         log.info("received request to create user: {}", user);
-        userRepository.save(user);
-        return ResponseEntity.ok("Created user successfully");
+        User userObj = userRepository.save(user);
+        return ResponseEntity.ok("Created user successfully with id: " + userObj.getId());
     }
 }

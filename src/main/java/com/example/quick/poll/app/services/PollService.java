@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface PollService {
 
-    void savePoll(Poll poll);
+    Long savePoll(Poll poll);
 
     Poll findPoll(long id);
 
